@@ -858,6 +858,42 @@ verbatim material, so will need to be set up using for example \cs{ttfamily}.
 Similarly, the \texttt{verbatim} environment sets up the meaning of \cs{par}
 suitable for breaking lines.
 
+\subsection{Verbatim environments}
+\label{sec:cmd:verbenv}
+
+In some cases, as well as grabbing an environment body you will want the
+contents to be treated verbatim. This is available using the argument
+specification~\texttt{f}. Like the \texttt{b} specification, this has to be the
+last one. Thus for example
+\begin{verbatim}
+\NewDocumentEnvironment{MyVerbatim}{!O{\ttfamily} +f}
+  {\begin{center} #1 #2\end{center}} {}
+\begin{MyVerbatim}[\ttfamily\itshape]
+  % Some code is show here
+  $y = mx + c$
+\end{MyVerbatim}
+\end{verbatim}
+will typeset
+\NewDocumentEnvironment{MyVerbatim}{!O{\ttfamily} +f}
+  {\begin{center} #1 #2\end{center}} {}
+\begin{MyVerbatim}[\ttfamily\itshape]
+  % Some code is show here
+  $y = mx + c$
+\end{MyVerbatim}
+
+As grabbing the entire contents verbatim, newlines are always permitted: if you
+use \texttt{f} rather than \texttt{+f}, a warning will be issued and \LaTeX{}
+will assume you meant to include the \texttt{+}. As for the \texttt{v}
+specification, new lines are stored as \cs{ObeyedLine}. In a similar fashion to
+the \texttt{b}~specification, by default \emph{newlines} are trimmed at both
+ends of the body. Putting the prefix |!| before \texttt{f} suppresses
+space-trimming.
+
+Notice that for technical reasons, we recommend that an optional argument
+coming immediately before an \texttt{f} specification should not allow any
+spaces, achieved by adding the \texttt{!} as showing in the example. However,
+this is left as a choice for the user.
+
 \subsection{Performance}
 
 For document commands where the argument specification is entirely
